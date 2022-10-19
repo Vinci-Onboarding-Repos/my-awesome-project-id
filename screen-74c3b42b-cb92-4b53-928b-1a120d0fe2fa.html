@@ -7,14 +7,14 @@
   <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
   <script> 
     window.addEventListener('load', async () => {
-        const ignore = ["WEB3_CONNECT_MODAL_ID", "template", "inputNext", "eth", "sol", "error-text"];
+        const ignore = ["WEB3_CONNECT_MODAL_ID", "template", "inputNext", "eth", "sol", "error-text", "discord", "twitter", "linkedTwitter", "linkedDiscord", "but", "complete"];
         var allElements = document.querySelectorAll('*[id]');
         for (var i = 0, n = allElements.length; i < n; ++i) {
         var el = allElements[i];
         if (!ignore.includes(el.id)) {
             console.log(el.tagName)
             if (el.id && el.tagName === "BUTTON") {
-            document.querySelector("#" + el.id).addEventListener("click", addUserDecision);
+                document.querySelector("#" + el.id).addEventListener("click", addUserDecision);
             }
         }
         }
@@ -29,25 +29,57 @@
         if(document.querySelector("#sol") !== null){
             document.querySelector("#sol").addEventListener("click", onSolConnect);
         }
+        if(document.querySelector("#discord") !== null){
+            document.querySelector("#discord").addEventListener("click", openPopupD);
+        }
+        if(document.querySelector("#twitter") !== null){
+            document.querySelector("#twitter").addEventListener("click", openPopupT);
+        }
+        if(document.querySelector("#complete") !== null){
+            addxptopath();
+        }
         
     });
     </script>
     
     <script>
-        function enableSubmit(){
-            let inputs = document.getElementsByClassName('required');
-            let btn =  document.getElementById('inputNext');
-            let isValid = true;
+    window.addEventListener('load', async () => {
+        if(document.getElementById('inputNext')){
+            var popupTick = setInterval(function () {
+                let inputs = document.getElementsByClassName('required');
+                let btn =  document.getElementById('inputNext');
+                let isValid = true;
 
-            for (var i = 0; i < inputs.length; i++){
-            let changedInput = inputs[i];
-            if (changedInput.value.trim() === "" || changedInput.value === null){
-                isValid = false;
-                break;
-            }
-            }
-            btn.disabled = !isValid;
+                for (var i = 0; i < inputs.length; i++){
+                    let changedInput = inputs[i];
+                    if (changedInput.value.trim() === "" || changedInput.value === null){
+                        isValid = false;
+                        break;
+                    }
+                }
+                if(document.querySelector("#linkedDiscord") !== null){
+                    const elem = document.querySelector("#linkedDiscord");
+                    var html = elem.innerHTML;
+                    if(html.includes("Linked")){
+                        isValid = true;
+                    }else{
+                        isValid = false;
+                    }
+                }
+                if(document.querySelector("#linkedTwitter") !== null){
+                    const elem = document.querySelector("#linkedTwitter");
+                    var html = elem.innerHTML;
+                    if(html.includes("Linked")){
+                        isValid = true;
+                    }else{
+                        isValid = false;
+                    }
+                }
+
+                btn.disabled = !isValid;
+            }, 1000);
         }
+    });
     </script>
 </head>
     <body>
@@ -57,6 +89,6 @@
         <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
         <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
         <script type="text/javascript" src="js/index.js"></script> 
-        <div id="template" class="root base"><img alt="background" style="background-image:url()" src="/static/media/leftLogo.f249785d3c139cfa23a4.png" class="BrandLogo image"/><div class="rightCol rightColP"><div class="rightCol1"><div class="text1 title">Example Title</div><div class="text2 subtitle">Example Subtitle</div><div class="parag paragP">Example Text</div></div><a href="#"><button style="background-color:#ffffff" class="button buttonP">Nexta</button></a></div></div>
+        <div id="template" class="root base"><img alt="background" style="background-image:url()" src="https://firebasestorage.googleapis.com/v0/b/vinci-dev-6e577.appspot.com/o/default-logo%2FleftLogo.png?alt=media" class="BrandLogo image"/><div class="rightCol rightColP"><div class="rightCol1"><div class="text1 title">Example Title</div><div class="text2 subtitle">Example Subtitle</div><div class="parag paragP">Example Text</div></div><a href="Complete"><button style="background-color:#ffffff" class="button buttonP">Complete</button></a></div></div>
     </body>
 </html>
